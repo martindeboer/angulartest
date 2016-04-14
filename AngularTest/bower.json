@@ -1,0 +1,22 @@
+{
+  "name": "AngularTest",
+  "authors": [
+    "Martin de Boer <martin.de.boer@indivirtual.com>"
+  ],
+  "description": "",
+  "dependencies": {
+    "angular": "1.5.3",
+    "signalr": "^2.2.0",
+    "angular-ui-router": "latest"
+  },
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
