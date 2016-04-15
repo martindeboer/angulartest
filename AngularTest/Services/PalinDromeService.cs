@@ -13,10 +13,44 @@ namespace AngularTest.Services
             _random = new Random();
         }
 
-        public string GenerateRandomString()
+        /// <summary>
+        /// Generates a palindrome with a minimum length of minLength and a maximum length of maxLength
+        /// maxLength can not exceed 100.
+        /// </summary>
+        /// <param name="minLength"></param>
+        /// <param name="maxLength"></param>
+        /// <returns></returns>
+        public string GeneratePalinDrome (int minLength, int maxLength)
         {
+            if (minLength > maxLength || maxLength > 100 || minLength <= 0)
+            {
+                throw new Exception("Invalid input");
+            }
+
+            minLength = minLength / 2 + minLength % 2;
+            maxLength = maxLength / 2 + maxLength % 2;
+
+            var randomString = this.GenerateRandomString(minLength, maxLength);
+
+            return this.TurnStringIntoPalinDrome(randomString);
+        }
+
+        /// <summary>
+        /// Generates a random string with a minimum length of minLength and a maximum length of maxLength
+        /// maxLength can not exceed 100.
+        /// </summary>
+        /// <param name="minLength"></param>
+        /// <param name="maxLength"></param>
+        /// <returns></returns>
+        public string GenerateRandomString(int minLength, int maxLength)
+        {
+            if (minLength > maxLength || maxLength > 100 || minLength <= 0)
+            {
+                throw new Exception("Invalid input");
+            }
+
             var randomString = "";
-            var length = _random.Next(2, 10);
+            var length = _random.Next(minLength, maxLength);
 
             for (int count = 0; count < length; count++)
             {

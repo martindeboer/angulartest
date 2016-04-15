@@ -4,32 +4,40 @@ module App.AngularTest.Controllers {
    
 
     interface IHomeController {
-        //createRecurringReservation();
+       
     }
-     
+
+    class VirtualList
+    {
+        getItemAtIndex(index: number): any
+        {
+            return null;
+        }
+        getLength(): number {
+            return 0;
+        }
+    }
+
 
     class HomeController implements IHomeController {
         palinDromes: string[];
 
         static $inject: string[] =
-        ["$scope", "$rootScope","SynchronizationService"];
+        ["$scope", "$rootScope"];
 
         constructor(
             private $scope: ng.IScope,
-            private rootScope: angular.IRootScopeService,
-            private synchronizationService: App.AngularTest.Services.ISynchronizationService
+            private rootScope: angular.IRootScopeService
         )
         {
-
             this.activate();
         }
        
         activate()
         {
-            
-            this.palinDromes = ["one","two","three","four","five"];
+            this.palinDromes = [];
             this.registerCallBacks();
-            this.synchronizationService.start();
+            // Under normal circumstances I would move this to an overarching project controller
         }
 
         registerCallBacks()
@@ -48,13 +56,20 @@ module App.AngularTest.Controllers {
 
         addPalinDrome(palinDrome: string)
         {
-            this.palinDromes.push(palinDrome);
+            var newPalinDrome: string[] = [palinDrome];
 
-            if (this.palinDromes.length > 20)
-            {
-                this.palinDromes = this.palinDromes.slice(1, this.palinDromes.length - 1);
-            }
-          
+            var endIndex = Math.min(20, this.palinDromes.length);
+
+            var buffer = this.palinDromes.slice(0, endIndex);
+            this.palinDromes = newPalinDrome.concat(buffer);
+        }
+
+        cmdStartOnClick()
+        {
+        }
+
+        cmdStopOnClick()
+        {
         }
 
     }

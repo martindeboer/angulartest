@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AngularTest.Interfaces
 {
-    interface IPalinDromeService
+    public interface IPalinDromeService
     {
+        string GeneratePalinDrome(int minLength, int maxLength);
     }
 }

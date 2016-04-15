@@ -1,14 +1,31 @@
-﻿<div>
-    <h1>GENERATE</h1>
-</div>
-<div ng-repeat="palinDrome in ctrl.palinDromes">
-    <h1>{{palinDrome}}</h1>
-</div>
-<div>
-    <button>
-        START
-    </button>
-    <button>
-        STOP
-    </button>
+﻿<div layout-align="space-around center">
+    <div layout="row">
+        <md-content class="oh-bg" md-scroll-y layout="column">
+            <div ng-repeat="palinDrome in ctrl.palinDromes">
+                {{palinDrome}}
+            </div>
+        </md-content>
+    </div>
+    <div>
+        <md-input-container>
+            <input type="number" maxlength="3">
+        </md-input-container>
+    </div>
+    <div>
+        <md-input-container>
+            <input type="number" maxlength="3">
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <div layout="column">
+            <md-button ng-click="ctrl.cmdStartOnClick()">
+                START
+            </md-button>
+        </div>
+        <div layout="column" ng-click="ctrl.cmdStopOnClick()">
+            <md-button>
+                STOP
+            </md-button>
+        </div>
+    </div>
 </div>

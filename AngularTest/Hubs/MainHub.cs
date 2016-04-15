@@ -5,6 +5,8 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading;
 using System.Threading.Tasks;
+using AngularTest.Interfaces;
+using AngularTest.Services;
 
 namespace AngularTest.Hubs
 {
@@ -15,21 +17,13 @@ namespace AngularTest.Hubs
         private int _max;
         private const int _startAfter = 2000;
         private const int _fireEvery = 2000;
-        private string _name;
+        private IPalinDromeService _palinDromeService;
+        private Random _random;
 
-        public MainHub()
+        public MainHub(IPalinDromeService palinDromeService)
         {
-            _name = "Johan"; 
-        }
-
-        public void SetName (string name)
-        {
-            _name = name;
-        }
-
-        public void GetName ()
-        {
-            Clients.Caller.getName(_name);
+            _palinDromeService = palinDromeService;
+            _random = new Random();
         }
 
         public void Start(int min, int max)
@@ -43,22 +37,20 @@ namespace AngularTest.Hubs
 
         public void Stop ()
         {
-            //_timer.Dispose();
-            //_timer = null;
+          
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            //_timer.Dispose();
-            //_timer = null;
-
+           
             return base.OnDisconnected(stopCalled);
         }
 
         private void OnTick (object state)
         {
-            Random random = new Random();
-            Clients.Caller.newPalinDrome(_name + ":" + random.Next());
+            var newPalinDrome = _palinDromeService.GeneratePalinDrome(_min, _max);
+
+            Clients.Caller.newPalinDrome(newPalinDrome);
         }
     }
 }
