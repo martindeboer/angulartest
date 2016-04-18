@@ -17,7 +17,7 @@ var App;
                     this.activate();
                 }
                 activate() {
-                    this.synchronizationService.start();
+                    this.synchronizationService.initialize();
                 }
             }
             AngularTestController.$inject = ["SynchronizationService"];

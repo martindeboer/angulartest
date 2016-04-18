@@ -27,10 +27,12 @@ namespace AngularTest.Services
                 throw new Exception("Invalid input");
             }
 
-            minLength = minLength / 2 + minLength % 2;
-            maxLength = maxLength / 2 + maxLength % 2;
+            //minLength = minLength / 2;
+            //maxLength = maxLength / 2 + maxLength % 2;
 
             var randomString = this.GenerateRandomString(minLength, maxLength);
+
+            randomString = randomString.Substring(0, (randomString.Length / 2) + randomString.Length % 2);
 
             return this.TurnStringIntoPalinDrome(randomString);
         }
@@ -50,11 +52,11 @@ namespace AngularTest.Services
             }
 
             var randomString = "";
-            var length = _random.Next(minLength, maxLength);
+            var length = _random.Next(minLength, maxLength+1);
 
             for (int count = 0; count < length; count++)
             {
-                var letterIndex = _random.Next(0, 25);
+                var letterIndex = _random.Next(0, 26);
                 randomString += (char)('a' + letterIndex);
             }
 
@@ -64,7 +66,9 @@ namespace AngularTest.Services
         public string TurnStringIntoPalinDrome (string palinFirstPart)
         {
             palinFirstPart = Regex.Replace(palinFirstPart, "([^a-zA-Z]{1,})", "");
+
             var palinLastPart = palinFirstPart.Substring(0, palinFirstPart.Length - (palinFirstPart.Length % 2)).ToCharArray();
+
             Array.Reverse(palinLastPart);
 
             return palinFirstPart + new string(palinLastPart);

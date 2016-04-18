@@ -11,7 +11,7 @@
     "angular-messages": "1.5.3",
     "angular-material": "1.0.7",
     "signalr": "^2.2.0",
-    "angular-ui-router": "latest"
+    "angular-ui-router": "0.2.18"
   },
   "main": "",
   "license": "MIT",

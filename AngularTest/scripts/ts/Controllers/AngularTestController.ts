@@ -25,7 +25,7 @@ module App.AngularTest.Controllers {
 
         activate() {
          
-            this.synchronizationService.start();
+            this.synchronizationService.initialize();
         }
 
     }

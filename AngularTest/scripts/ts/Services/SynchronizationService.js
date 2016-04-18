@@ -9,16 +9,22 @@ var App;
                 constructor(rootScope) {
                     this.rootScope = rootScope;
                 }
-                start() {
+                initialize() {
                     this.mainHub = $.connection.mainHub;
                     $.connection.hub.start().then(() => {
-                        this.mainHub.server.start(1, 100);
                     }, () => {
                         // TODO: error handling
                     });
                     this.mainHub.client.newPalinDrome = (palinDrome) => {
+                        console.log("event fired ");
                         this.newPalinDrome(palinDrome);
                     };
+                }
+                start(minLength, maxLength) {
+                    this.mainHub.server.start(minLength, maxLength);
+                }
+                stop() {
+                    this.mainHub.server.stop();
                 }
                 newPalinDrome(palinDrome) {
                     this.rootScope.$broadcast("newPalinDrome", palinDrome);
