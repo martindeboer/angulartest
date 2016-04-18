@@ -15,54 +15,30 @@ namespace AngularTest.UnitTests
             _palinDromeService = new PalinDromeService();
         }
 
-        [Fact]
-        public void GeneratePalinDromeTest()
-        {
-            var palinDrome1 = _palinDromeService.TurnStringIntoPalinDrome("bee");
-            var palinDrome2 = _palinDromeService.TurnStringIntoPalinDrome("beep");
-
-
-            Assert.True(palinDrome1 == "beeeb" && palinDrome2 == "beeppeeb");
-        }
-
-        [Fact]
-        public void GenerateRandomStringTest ()
-        {
-            // Is this really a proper unit-test? By using Random it's not really consistent, but it does get tested.
-            bool validSoFar = true;
-            Random random = new Random();
-
-            for (int count=0;count<1000 && validSoFar;count++)
-            {
-                var minLength = random.Next(1, 30);
-                var maxLength = random.Next(31, 100);
-
-                var randomString = _palinDromeService.GenerateRandomString(minLength,maxLength);
-
-                validSoFar = (Regex.Matches("", "([^a-zA-Z]{1,})").Count == 0) && randomString.Length >= minLength && randomString.Length <= maxLength; 
-            }
-
-            Assert.True(validSoFar);
-        }
-
         [Theory]
-        [InlineData(-1,1)]
-        [InlineData(5,3)]
-        [InlineData(-6,-3)]
-        [InlineData(1,101)]
-        public void GenerateRandomStringExceptionTest (int minLength, int maxLength)
+        [InlineData(1,1)]
+        [InlineData(5,10)]
+        public void GeneratePalinDromeTest (int minLength, int maxLength)
         {
-            bool exceptionThrown = false;
+            bool noMistakes = true;
 
-            try
+            var palinDrome = _palinDromeService.GeneratePalinDrome(minLength, maxLength);
+
+            if (palinDrome.Length < minLength || palinDrome.Length > maxLength)
             {
-                _palinDromeService.GenerateRandomString(minLength, maxLength);
-            } catch (Exception)
-            {
-                exceptionThrown = true;
+                noMistakes = false;
             }
 
-            Assert.True(exceptionThrown);
+            for (int count=0;count<palinDrome.Length/2;count++)
+            {
+                if (palinDrome[count] != palinDrome[palinDrome.Length-1-count])
+                {
+                    noMistakes = false;
+                }
+            }
+            Assert.True(noMistakes);
         }
+
+   
     }
 }
