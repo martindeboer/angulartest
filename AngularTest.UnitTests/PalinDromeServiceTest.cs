@@ -39,6 +39,26 @@ namespace AngularTest.UnitTests
             Assert.True(noMistakes);
         }
 
+        [Theory]
+        [InlineData(0,0)]
+        [InlineData(6,5)]
+        [InlineData(10000,20000)]
+        [InlineData(-5,-3)]
+        public void ExceptionTest (int minLength, int maxLength)
+        {
+            bool exceptionThrown = false;
+
+            try
+            {
+                _palinDromeService.GeneratePalinDrome(minLength, maxLength);
+
+            } catch (Exception e)
+            {
+                exceptionThrown = true;
+            }
+
+            Assert.True(exceptionThrown);
+        }
    
     }
 }
